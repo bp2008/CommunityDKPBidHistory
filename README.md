@@ -43,13 +43,11 @@ This will give you a little bit of console output which further instructs on whe
 
 This app's built-in Service Manager and configuration GUI are unavailable on linux, but you can do most of the configuration on a Windows machine and copy the configuration file out of the service's data directory.
 
-You will of course need to transfer MonolithDKP.lua from your WoW machine to the linux box.  This app can handle that for you via its built-in uploading functionality (see screenshot above for a bit of guidance on how to configure it).  Set the same server password on both your local machine and the remote one -- this password is used only to authenticate clients attempting to use the DKP uploading interface.  Enable receipt of uploads only on a cloud server.
+You will of course need to transfer MonolithDKP.lua from your WoW machine to the linux box.  This app can handle that for you via its built-in uploading functionality (see screenshot above for a bit of guidance on how to configure it).  Set the same server password on both your local machine and the remote one -- this password is used only to authenticate clients attempting to use the DKP uploading interface.  Set a 1 minute `Upload Interval` on one server, and enable `Accept uploads from remote clients` on the other.  Don't worry about 1 minute being too often; the upload and backup tasks only occur once upon service startup and then whenever the file changes.  As far as I can tell, WoW doesn't write this file until you log out or reload your UI, so it doesn't update very often.  A 1 minute interval and a 60 minute interval are for most purposes functionally identical.
 
 * Note: The app currently does not support multiple instances on one machine due to the data directory being at a shared path.
 
 If you want HTTPS, I recommend using nginx and certbot.
-
-
 
 ## Building from Source
 
