@@ -332,7 +332,6 @@
 							won by
 							<span class="player" :class="item.wowclass" v-text="item.player"></span>
 							<span class="dkpCost">({{Math.abs(item.cost)}} DKP <span class="refund" v-if="item.cost > 0">REFUND</span>)</span>
-							<span class="dkpCost" v-text="'(' + Math.abs(item.cost) + ' DKP' + (item.cost > 0 ? ' REFUND' : '') + ')'"></span>
 						</span>
 					</div>
 				</div>

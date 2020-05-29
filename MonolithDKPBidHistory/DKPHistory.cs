@@ -21,6 +21,11 @@ namespace MonolithDKPBidHistory
 		private EventWaitHandle ewhThreadWaiter = new EventWaitHandle(false, EventResetMode.ManualReset);
 		private static string luaFileContents = null;
 		/// <summary>
+		/// Lock this when accessing the MonolithDKP.lua file.
+		/// </summary>
+		public static object LuaFileLock = new object();
+
+		/// <summary>
 		/// Gets cached lua file contents from memory from the last time the file was read.
 		/// </summary>
 		/// <returns></returns>
@@ -83,25 +88,28 @@ namespace MonolithDKPBidHistory
 					// Make local copy of file
 					try
 					{
-						FileInfo fiSrc = new FileInfo(settings.luaFilePath);
-						if (!fiSrc.Exists)
+						lock (LuaFileLock)
 						{
-							Logger.Info("Could not find MonolithDKP.lua. Check configuration.");
-							continue;
-						}
-						if (lastFileWrite != fiSrc.LastWriteTimeUtc)
-						{
-							lastFileWrite = fiSrc.LastWriteTimeUtc;
-							File.Copy(fiSrc.FullName, localLuaPath, true);
-							// Read file
-							luaFileContents = File.ReadAllText(localLuaPath);
+							FileInfo fiSrc = new FileInfo(settings.luaFilePath);
+							if (!fiSrc.Exists)
+							{
+								Logger.Info("Could not find MonolithDKP.lua. Check configuration.");
+								continue;
+							}
+							if (lastFileWrite != fiSrc.LastWriteTimeUtc)
+							{
+								lastFileWrite = fiSrc.LastWriteTimeUtc;
+								File.Copy(fiSrc.FullName, localLuaPath, true);
+								// Read file
+								luaFileContents = File.ReadAllText(localLuaPath);
 
-							// Calculate Hash Code
-							hash = Hash.GetMD5HexOfFile(localLuaPath);
-							fileChanged = previousHash != hash;
-							previousHash = hash;
-							needsLocalBackup = needsLocalBackup || fileChanged;
-							needsRemoteUpload = needsRemoteUpload || fileChanged;
+								// Calculate Hash Code
+								hash = Hash.GetMD5HexOfFile(localLuaPath);
+								fileChanged = previousHash != hash;
+								previousHash = hash;
+								needsLocalBackup = needsLocalBackup || fileChanged;
+								needsRemoteUpload = needsRemoteUpload || fileChanged;
+							}
 						}
 					}
 					catch (Exception ex)

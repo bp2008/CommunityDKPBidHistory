@@ -27,7 +27,10 @@ namespace MonolithDKPBidHistory.Controllers
 					FileInfo fiLocalLua = new FileInfo(localLuaPath);
 					if (!fiLocalLua.Directory.Exists)
 						Directory.CreateDirectory(fiLocalLua.Directory.FullName);
-					File.WriteAllBytes(localLuaPath, Context.httpProcessor.PostBodyStream.ToArray());
+					lock (DKPHistory.LuaFileLock)
+					{
+						File.WriteAllBytes(localLuaPath, Context.httpProcessor.PostBodyStream.ToArray());
+					}
 					return PlainText("1");
 				}
 				catch (Exception ex)
