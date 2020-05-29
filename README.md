@@ -15,7 +15,7 @@ Get a release from [the project's releases tab](https://github.com/bp2008/Monoli
 
 ### On Windows
 
-This will require some computer literacy.  To install, simply extract the application to a directory of your choosing, and run `MonolithDKPBidHistory.exe`.
+This will require some computer literacy.  To install, simply extract the application to a directory of your choosing (using 7zip), and run `MonolithDKPBidHistory.exe`.
 
 This Service Manager will open:
 
