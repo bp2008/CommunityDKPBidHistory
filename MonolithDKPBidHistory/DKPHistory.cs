@@ -132,8 +132,10 @@ namespace MonolithDKPBidHistory
 								Directory.CreateDirectory(settings.localBackupPath);
 							if (Directory.Exists(settings.localBackupPath))
 							{
-								DateTime now = DateTime.Now;
-								File.Copy(localLuaPath, Path.Combine(settings.localBackupPath, "MonolithDKP-" + now.ToString("yyyy-MM-dd hh-mm-ss") + ".lua"), true);
+								DateTime fileTime = File.GetLastWriteTime(localLuaPath);
+								string bkFileName = Path.Combine(settings.localBackupPath, "MonolithDKP-" + fileTime.ToString("yyyy-MM-dd hh-mm-ss") + ".lua");
+								if (!File.Exists(bkFileName))
+									File.Copy(localLuaPath, bkFileName, true);
 								// Backup complete
 							}
 							else

@@ -66,6 +66,12 @@
 				background-color: rgba(255,255,255,0.1);
 			}
 
+			.allAny > .all,
+			.allAny > .any
+			{
+				text-align: center;
+			}
+
 			.allAny.allEnabled > .all,
 			.allAny.anyEnabled > .any
 			{
@@ -331,7 +337,7 @@
 						<span v-show="!compactLayout">
 							won by
 							<span class="player" :class="item.wowclass" v-text="item.player"></span>
-							<span class="dkpCost">({{Math.abs(item.cost)}} DKP <span class="refund" v-if="item.cost > 0">REFUND</span>)</span>
+							<span class="dkpCost">({{Math.abs(item.cost)}} DKP<span class="refund" v-if="item.cost > 0"> REFUND</span>)</span>
 						</span>
 					</div>
 				</div>
