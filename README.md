@@ -11,6 +11,8 @@ Additional features include automated backups of the MonolithDKP.lua file and th
 
 ## Installation
 
+Get a release from [the project's releases tab](https://github.com/bp2008/MonolithDKPBidHistory/releases).
+
 ### On Windows
 
 This will require some computer literacy.  To install, simply extract the application to a directory of your choosing, and run `MonolithDKPBidHistory.exe`.
@@ -23,7 +25,9 @@ Here, you can install, uninstall, start, and stop the service.  A configuration 
 
 ![Configuration GUI](https://i.imgur.com/pGzqpgv.png)
 
-To find your MonolithDKP.lua, look here: `World of Warcraft\_classic_\WTF\Account\YOUR_ACCOUNT\SavedVariables\MonolithDKP.lua`
+For basic functionality, enable the web server, choose a port (80 is default for HTTP), and enter the path to your `MonolithDKP.lua` file.
+
+To find `MonolithDKP.lua`, look here: `World of Warcraft\_classic_\WTF\Account\YOUR_ACCOUNT\SavedVariables\MonolithDKP.lua`
 
 If you intend for others to access your web server, you will need to open its port in Windows Firewall.  You will also need to set up the internet routing via a port forwarding rule in your router, or by a private VPN service such as Hamachi.
 
