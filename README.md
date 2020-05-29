@@ -35,7 +35,9 @@ If you intend for others to access your web server, you will need to open its po
 
 Advanced users may wish to run the web server in the cloud.  A minimal linux virtual machine is all that is required.  This is a .NET Framework application, so to run it you should install `mono-complete`.  Then you can run the application via
 
-```mono /path/to/MonolithDKPBidHistory.exe````
+```
+mono /path/to/MonolithDKPBidHistory.exe
+```
 
 This will give you a little bit of console output which further instructs on where the data directory is and how to run the application as a command-line app.  It is up to you to deal with automatic start/stop; I can only point you at [supervisor](http://supervisord.org/running.html).
 
