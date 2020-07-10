@@ -1,0 +1,631 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>@HtmlEncode:GuildName Bid History</title>
+	<style type="text/css">
+		body
+		{
+			background-color: #000000;
+			color: #CCCCCC;
+			font-family: sans-serif;
+			margin: 0px;
+		}
+
+		a
+		{
+			text-decoration: none;
+		}
+
+		.searchBar
+		{
+			position: sticky;
+			top: 0px;
+			padding: 8px;
+			background-color: #000000;
+			border-bottom: 1px solid #888888;
+			background-color: #141414;
+			z-index: 100;
+			display: flex;
+			align-items: center;
+		}
+
+		input[type="search"]
+		{
+			border: 1px solid #888888;
+			border-radius: 4px;
+			padding: 4px 6px;
+			font-size: 16pt;
+			background-color: #343434;
+			color: #E4E4E4;
+			width: 100%;
+			flex: 1 1 auto;
+		}
+
+			input[type="search"]::placeholder
+			{
+				color: #888888;
+			}
+
+		.allAny
+		{
+			cursor: pointer;
+			font-size: 14px;
+			color: #888888;
+			width: 30px;
+			height: 30px;
+			padding: 5px;
+			flex: 0 0 auto;
+			margin-left: 5px;
+			user-select: none;
+		}
+
+			.allAny:hover
+			{
+				background-color: rgba(255,255,255,0.1);
+			}
+
+			.allAny > .all,
+			.allAny > .any
+			{
+				text-align: center;
+			}
+
+			.allAny.allEnabled > .all,
+			.allAny.anyEnabled > .any
+			{
+				font-weight: bold;
+				color: #AAFFAA;
+			}
+
+			.allAny > .sep
+			{
+				width: 30px;
+				height: 1px;
+				background-color: #888888;
+			}
+
+		.compactLayout
+		{
+			cursor: pointer;
+			fill: #888888;
+			width: 30px;
+			height: 30px;
+			padding: 5px;
+			flex: 0 0 auto;
+			margin-left: 5px;
+		}
+
+			.compactLayout:hover
+			{
+				background-color: rgba(255,255,255,0.2);
+			}
+
+			.compactLayout.enabled
+			{
+				fill: #99EE99;
+			}
+
+		.helpButton
+		{
+			cursor: pointer;
+			font-size: 24px;
+			text-align: center;
+			width: 30px;
+			height: 30px;
+			padding: 5px;
+			margin-left: 5px;
+		}
+
+			.helpButton:hover
+			{
+				background-color: rgba(255,255,255,0.2);
+			}
+
+		.history
+		{
+			margin: 8px;
+		}
+
+		.raid
+		{
+			margin: 5px 0px;
+			/*border: 1px solid #888888;*/
+			/*border-radius: 2px;*/
+		}
+
+		.compact .raid
+		{
+			margin: 0px;
+		}
+
+		.raidHeading
+		{
+			display: flex;
+			align-items: baseline;
+			padding: 2px 7px;
+			background-color: #242424;
+			font-size: 20px;
+			margin-bottom: 5px;
+		}
+
+			.raidHeading > h2
+			{
+				margin: 0px;
+				font-size: 20px;
+			}
+
+		.raidDate
+		{
+			margin-left: 15px;
+		}
+
+		.boss
+		{
+			margin-left: 15px;
+		}
+
+		.bossName
+		{
+			color: #FF0000;
+			font-weight: normal;
+			font-size: 16px;
+			margin: 5px 0px;
+			/*text-transform: uppercase;*/
+		}
+
+		.item
+		{
+			margin-left: 15px;
+		}
+
+		.iconsmall
+		{
+			height: 22px !important;
+		}
+
+			.iconsmall ins
+			{
+				top: 1px !important;
+			}
+
+			.iconsmall del
+			{
+				top: -3px !important;
+			}
+
+		.compact .iconsmall
+		{
+			height: 16px !important;
+			transform: scale(0.889);
+		}
+
+			.compact .iconsmall ins
+			{
+				top: -2px !important;
+			}
+
+			.compact .iconsmall del
+			{
+				display: none;
+			}
+
+		.player
+		{
+			font-weight: bold;
+			color: #E4E4E4;
+		}
+
+		.dkpCost
+		{
+			font-weight: bold;
+			color: #888888;
+		}
+
+		.refund
+		{
+			color: #2ad42f;
+		}
+
+		.noItems
+		{
+			text-align: center;
+		}
+
+		/* Class Colors */
+		.player.deathknight
+		{
+			color: #C41F3B;
+		}
+
+		.player.demonhunter
+		{
+			color: #A330C9;
+		}
+
+		.player.druid
+		{
+			color: #FF7D0A;
+		}
+
+		.player.hunter
+		{
+			color: #A9D271;
+		}
+
+		.player.mage
+		{
+			color: #40C7EB;
+		}
+
+		.player.monk
+		{
+			color: #00FF96;
+		}
+
+		.player.paladin
+		{
+			color: #F58CBA;
+		}
+
+		.player.priest
+		{
+			color: #FFFFFF;
+		}
+
+		.player.rogue
+		{
+			color: #FFF569;
+		}
+
+		.player.shaman
+		{
+			color: #0070DE;
+		}
+
+		.player.warlock
+		{
+			color: #8787ED;
+		}
+
+		.player.warrior
+		{
+			color: #C79C6E;
+		}
+
+		.player.unrecognized
+		{
+			color: #FF0000;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" style="display: none;" :class="rootClasses">
+		<div class="searchBar">
+			<input type="search" v-model="query" placeholder="Filter by item, boss, player..." />
+			<div :class="allAnyClasses" role="button" tabindex="0" v-on:click="allAnyClicked" v-on:keypress.enter.prevent="allAnyClicked" title="Toggle All/Any Search Terms">
+				<div class="all">ALL</div>
+				<div class="sep"></div>
+				<div class="any">ANY</div>
+			</div>
+			<div :class="compactLayoutClasses" role="button" tabindex="0" v-on:click="compactLayoutClicked" v-on:keypress.enter.prevent="compactLayoutClicked" title="Toggle Compact/Full Layout">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 19h6v-7H3v7zm7 0h12v-7H10v7zM3 5v6h19V5H3z" /></svg>
+			</div>
+			<div class="helpButton" role="button" tabindex="0" v-on:click="showHelp" v-on:keypress.enter.prevent="showHelp" title="Show Help">
+				?
+			</div>
+		</div>
+		<div class="history">
+			<div class="raid" v-for="raid in raids" :key="raid.id" v-show="raid.show">
+				<div class="raidHeading" v-show="!compactLayout">
+					<h2 v-text="raid.zone"></h2>
+					<div class="raidDate" v-text="dateFormat(raid.date)"></div>
+				</div>
+
+				<div class="boss" v-for="boss in raid.bosses" :key="boss.id" v-show="boss.show">
+					<h3 class="bossName" v-text="boss.name" v-show="!compactLayout"></h3>
+					<div class="item" v-for="item in boss.loot" :key="item.id" v-show="item.show">
+						<span v-show="compactLayout">
+							<span class="itemDate">{{dateFormat(item.date)}}</span>
+							-
+							<span class="dkpCost">{{Math.abs(item.cost)}} DKP <span class="refund" v-if="item.cost > 0">refunded to</span><span v-else>paid by</span></span>
+							<span class="player" :class="item.wowclass">{{item.player}}</span>
+							for
+						</span>
+						<a class="itemName" :href="'https://classic.wowhead.com/item=' + item.itemid" target="_blank" :style="'color: #' + item.color + ';'" :data-wowhead="'item=' + item.itemid + '&amp;domain=classic'" v-text="item.name"></a>
+						<span v-show="!compactLayout">
+							won by
+							<span class="player" :class="item.wowclass" v-text="item.player"></span>
+							<span class="dkpCost">({{Math.abs(item.cost)}} DKP<span class="refund" v-if="item.cost > 0"> REFUND</span>)</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="noItems" v-if="!anyVisible">No items match your current filter.</div>
+		</div>
+	</div>
+	<script src="@HtmlAttributeEncode:VueScriptName"></script>
+	<script>
+		String.prototype.padLeft = function (len, c)
+		{
+			var pads = len - this.length;
+			if (pads > 0)
+			{
+				var sb = [];
+				var pad = c || "&nbsp;";
+				for (var i = 0; i < pads; i++)
+					sb.push(pad);
+				sb.push(this);
+				return sb.join("");
+			}
+			return this;
+
+		};
+
+		var loot = @Loot;
+
+		//EXAMPLE LOOT ARRAY ITEM
+		//{
+		//	boss: "Onyxia"
+		//	cost: 0
+		//	date: 1578450205
+		//	itemid: 17067
+		//	name: "Ancient Cornerstone Grimoire"
+		//	player: "Anonymous"
+		//	zone: "Onyxia's Lair"
+		//	color: "0070dd"
+		//}
+
+		var players = @Players;
+
+		var classColors = {
+			deathknight: "#C41F3B",
+			demonhunter: "#A330C9",
+			druid: "#FF7D0A",
+			hunter: "#A9D271",
+			mage: "#40C7EB",
+			monk: "#00FF96",
+			paladin: "#F58CBA",
+			priest: "#FFFFFF",
+			rogue: "#FFF569",
+			shaman: "#0070DE",
+			warlock: "#8787ED",
+			warrior: "#C79C6E"
+		};
+
+		var playerClasses = {};
+		for (var i = 0; i < players.length; i++)
+			playerClasses[players[i].name] = players[i].wowclass;
+
+		var itemIdCounter = 0;
+		for (var i = 0; i < loot.length; i++)
+		{
+			var item = loot[i];
+			item.lowercases = {
+				name: item.name.trim().toLowerCase()
+				, player: item.player.trim().toLowerCase()
+				, boss: item.boss.trim().toLowerCase()
+			};
+			item.id = itemIdCounter++;
+			item.wowclass = playerClasses[item.player];
+			item.show = true;
+		}
+
+		var vm = new Vue({
+			el: '#app',
+			data: function ()
+			{
+				return {
+					query: '',
+					compactLayout: localStorage.mdbh_compactLayout === "1",
+					searchMode: localStorage.mdbh_searchMode
+				};
+			},
+			created: function ()
+			{
+				if (this.searchMode !== "all" && this.searchMode !== "any")
+					this.searchMode = localStorage.mdbh_searchMode = "all";
+			},
+			mounted: function ()
+			{
+				document.getElementById("app").style.display = "block";
+			},
+			computed:
+			{
+				queries: function ()
+				{
+					var arr = this.query.split(',');
+					for (var i = 0; i < arr.length; i++)
+						arr[i] = arr[i].trim().toLowerCase();
+					arr = arr.filter(q => !!q); // remove empty items
+					arr = arr.map(q => ({ q: q }));
+					return arr
+				},
+				raids: function ()
+				{
+					// Search
+					var queries = JSON.parse(JSON.stringify(this.queries));
+					for (var x = 0; x < queries.length; x++)
+					{
+						var q = queries[x];
+						q.matches = [];
+
+						// Find full matches
+						for (var i = 0; i < loot.length; i++)
+						{
+							var item = loot[i];
+							if (item.lowercases.name === q.q
+								|| item.lowercases.player === q.q
+								|| item.lowercases.boss === q.q)
+							{
+								q.matches.push(item.id);
+							}
+						}
+						// If no full matches, find partial matches
+						if (q.matches.length === 0)
+						{
+							for (var i = 0; i < loot.length; i++)
+							{
+								var item = loot[i];
+								if (item.lowercases.name.indexOf(q.q) > -1
+									|| item.lowercases.player.indexOf(q.q) > -1
+									|| item.lowercases.boss.indexOf(q.q) > -1)
+								{
+									q.matches.push(item.id);
+								}
+							}
+						}
+					}
+
+					var matchedIds = {};
+					for (var i = 0; i < queries.length; i++)
+					{
+						var q = queries[i];
+						for (var n = 0; n < q.matches.length; n++)
+						{
+							if (matchedIds[q.matches[n]])
+								matchedIds[q.matches[n]] = matchedIds[q.matches[n]] + 1;
+							else
+								matchedIds[q.matches[n]] = 1;
+						}
+					}
+					if (this.searchMode === "all")
+					{
+						for (var i = 0; i < queries.length; i++)
+						{
+							var q = queries[i];
+							for (var n = 0; n < q.matches.length; n++)
+							{
+								if (matchedIds[q.matches[n]] !== queries.length)
+									matchedIds[q.matches[n]] = 0;
+							}
+						}
+					}
+
+					var raids = [];
+					var raidIdCounter = 0;
+					var raid = null;
+					var boss = null;
+					var bossIdCounter = 0;
+
+					for (var i = 0; i < loot.length; i++)
+					{
+						var item = loot[i];
+						// Raid Setup
+						if (!raid || raid.zone !== item.zone)
+						{
+							raid = {
+								id: "raid" + raidIdCounter++,
+								zone: item.zone,
+								date: item.date,
+								show: false,
+								bosses: []
+							};
+							raids.push(raid);
+							bossIdCounter = 0;
+						}
+
+						// Boss Setup
+
+						if (!boss || boss.raidid !== raid.id || boss.name !== item.boss)
+						{
+							boss = {
+								id: raid.id + "-" + (bossIdCounter++) + '-' + item.boss,
+								raidid: raid.id,
+								name: item.boss,
+								date: item.date,
+								show: false,
+								loot: []
+							};
+							raid.bosses.push(boss);
+						}
+
+						if (this.queries.length === 0)
+							item.show = true;
+						else if (matchedIds[item.id])
+							item.show = true;
+						else
+							item.show = false;
+						if (item.show)
+							raid.show = boss.show = true;
+						// Assign Loot
+						boss.loot.push(item);
+					}
+					return raids;
+				},
+				//anyInvisible: function ()
+				//{
+				//	for (var i = 0; i < this.raids.length; i++)
+				//		for (var j = 0; j < this.raids[i].bosses.length; j++)
+				//			for (var k = 0; k < this.raids[i].bosses[j].loot.length; k++)
+				//				if (!this.raids[i].bosses[j].loot[k].show)
+				//					return true;
+				//	return false;
+				//},
+				anyVisible: function ()
+				{
+					for (var i = 0; i < this.raids.length; i++)
+						if (this.raids[i].show)
+							return true;
+					return false;
+				},
+				rootClasses: function ()
+				{
+					var classes = ["rootComponent"];
+					if (this.compactLayout)
+						classes.push("compact");
+					return classes;
+				},
+				compactLayoutClasses: function ()
+				{
+					var classes = ["compactLayout"];
+					if (this.compactLayout)
+						classes.push("enabled");
+					return classes;
+				},
+				allAnyClasses: function ()
+				{
+					var classes = ["allAny"];
+					if (this.searchMode === "any")
+						classes.push("anyEnabled");
+					else
+						classes.push("allEnabled");
+					return classes;
+				}
+			},
+			methods:
+			{
+				compactLayoutClicked: function ()
+				{
+					this.compactLayout = !this.compactLayout;
+					localStorage.mdbh_compactLayout = this.compactLayout ? "1" : "0";
+				},
+				allAnyClicked: function ()
+				{
+					if (this.searchMode === "any")
+					{
+						this.searchMode = localStorage.mdbh_searchMode = "all";
+
+					}
+					else
+					{
+						this.searchMode = localStorage.mdbh_searchMode = "any";
+					}
+				},
+				dateFormat: function (date)
+				{
+					var d = new Date(date * 1000);
+					return d.getFullYear() + "-" + (d.getMonth() + 1).toString().padLeft(2, '0') + "-" + d.getDate().toString().padLeft(2, '0');
+				},
+				showHelp: function ()
+				{
+					alert("Enter item, boss, or player names into the search box.\n\nSeparate multiple queries with commas.\n\nPartial matches for a query will be ignored if full matches are found.");
+				}
+			}
+		});
+	</script>
+	<script>const whTooltips = { colorLinks: false, iconizeLinks: true, renameLinks: false, iconSize: 'small' };</script>
+	<script src="https://wow.zamimg.com/widgets/power.js"></script>
+</body>
+</html>
