@@ -1,21 +1,19 @@
-# MonolithDKPBidHistory
-A searchable web interface for bid history from MonolithDKP.
+# CommunityDKPBidHistory
+A searchable web interface for bid history from CommunityDKP.
 
 ## Description
 
-This application is a companion to the MonolithDKP mod for World of Warcraft Classic.  It reads MonolithDKP.lua from your WoW Classic data directory to create a web interface similar to the Loot History tab within MonolithDKP.
+This application is a companion to the CommunityDKP mod for World of Warcraft Classic.  It reads CommunityDKP.lua from your WoW Classic data directory to create a web interface similar to the Loot History tab within CommunityDKP.
 
 ![Screenshot](https://i.imgur.com/Qdi0cMD.png)
 
-Additional features include automated backups of the MonolithDKP.lua file and the ability to mirror your DKP data to a cloud server (which you must run yourself).
+Additional features include automated backups of the CommunityDKP.lua file and the ability to mirror your DKP data to a cloud server (which you must run yourself).
 
 ## Installation
 
-Get a release from [the project's releases tab](https://github.com/bp2008/MonolithDKPBidHistory/releases).
+Get a release from [the project's releases tab](https://github.com/bp2008/CommunityDKPBidHistory/releases).
 
-### On Windows
-
-This will require some computer literacy.  To install, simply extract the application to a directory of your choosing (using 7zip), and run `MonolithDKPBidHistory.exe`.
+This will require some computer literacy.  To install, simply extract the application to a directory of your choosing (using 7zip), and run `CommunityDKPBidHistory.exe`.
 
 This Service Manager will open:
 
@@ -23,29 +21,41 @@ This Service Manager will open:
 
 Here, you can install, uninstall, start, and stop the service.  A configuration GUI is also provided.
 
-![Configuration GUI](https://i.imgur.com/pGzqpgv.png)
+Since version 2.0, this app is designed to be run either *as a web server* **or** *as a client service* which uploads data to a web server and/or makes automated backups of the dkp data file.  At this time, it is not a supported configuration to run the web server and the client service on the same machine.
 
-For basic functionality, enable the web server, choose a port (80 is default for HTTP), and enter the path to your `MonolithDKP.lua` file.
+### Client Configuration
 
-To find `MonolithDKP.lua`, look here: `World of Warcraft\_classic_\WTF\Account\YOUR_ACCOUNT\SavedVariables\MonolithDKP.lua`
+To configure the app as a client, just disable the web server option.
+
+You will need to tell the app where to find `CommunityDKP.lua`.  Typically this is in `World of Warcraft\_classic_\WTF\Account\YOUR_ACCOUNT\SavedVariables\CommunityDKP.lua`
+
+For the app to be useful, you need to enable uploading or local backups (or both).  The following screenshot is an example configuration:
+
+![Client Configuration GUI](https://i.imgur.com/49lB2EU.png)
+
+Don't worry about a 1 minute interval being too fast; the upload and backup tasks only occur once upon service startup and then whenever the file changes, so it doesn't waste too much space or bandwidth.
+
+### Server Configuration
+
+To configure as a web server, enable the web server option and choose a port (80 is default for HTTP). You can leave the path path to your `CommunityDKP.lua` file blank.  Set a server password, and enable the option to accept uploads from remote clients.
+
+![Server Configuration GUI](https://i.imgur.com/Mbl29hz.png)
 
 If you intend for others to access your web server, you will need to open its port in Windows Firewall.  You will also need to set up the internet routing via a port forwarding rule in your router, or by a private VPN service such as Hamachi.
 
-### On Linux
+Set the same server password in your configuration for the web server and for the client app -- this password is used only to authenticate clients attempting to use the DKP uploading interface.
+
+### Serving On Linux
 
 Advanced users may wish to run the web server in the cloud.  A minimal linux virtual machine is all that is required.  This is a .NET Framework application, so to run it you should install `mono-complete`.  Then you can run the application via
 
 ```
-mono /path/to/MonolithDKPBidHistory.exe
+mono /path/to/CommunityDKPBidHistory.exe
 ```
 
 This will give you a little bit of console output which further instructs on where the data directory is and how to run the application as a command-line app.  It is up to you to deal with automatic start/stop; I can only point you at [supervisor](http://supervisord.org/running.html).
 
 This app's built-in Service Manager and configuration GUI are unavailable on linux, but you can do most of the configuration on a Windows machine and copy the configuration file out of the service's data directory.
-
-You will of course need to transfer MonolithDKP.lua from your WoW machine to the linux box.  This app can handle that for you via its built-in uploading functionality (see screenshot above for a bit of guidance on how to configure it).  Set the same server password on both your local machine and the remote one -- this password is used only to authenticate clients attempting to use the DKP uploading interface.  Set a 1 minute `Upload Interval` on one server, and enable `Accept uploads from remote clients` on the other.  Don't worry about 1 minute being too often; the upload and backup tasks only occur once upon service startup and then whenever the file changes.  As far as I can tell, WoW doesn't write this file until you log out or reload your UI, so it doesn't update very often.  A 1 minute interval and a 60 minute interval are for most purposes functionally identical.
-
-* Note: The app currently does not support multiple instances on one machine due to the data directory being at a shared path.
 
 If you want HTTPS, I recommend using nginx and certbot.
 
