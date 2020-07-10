@@ -7,7 +7,7 @@ This application is a companion to the CommunityDKP mod for World of Warcraft Cl
 
 ![Screenshot](https://i.imgur.com/Qdi0cMD.png)
 
-Additional features include automated backups of the CommunityDKP.lua file and the ability to mirror your DKP data to a cloud server (which you must run yourself).
+An additional feature provided by this app is automated backups of the CommunityDKP.lua file (which contains all your dkp history and configuration).
 
 ## Installation
 
