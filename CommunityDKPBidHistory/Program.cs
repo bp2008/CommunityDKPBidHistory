@@ -18,6 +18,9 @@ namespace CommunityDKPBidHistory
 		[STAThread]
 		static void Main()
 		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetEntryAssembly();
+			Globals.Initialize(assembly.Location, "");
+
 			WindowsServiceInitOptions o = new WindowsServiceInitOptions();
 			o.ServiceManagerButtons_UpdateSettingsFile = false;
 			o.ServiceManagerButtons = new ButtonDefinition[] {

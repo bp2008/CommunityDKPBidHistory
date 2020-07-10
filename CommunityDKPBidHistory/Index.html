@@ -508,12 +508,13 @@
 					var raid = null;
 					var boss = null;
 					var bossIdCounter = 0;
+					var raidDate = "";
 
 					for (var i = 0; i < loot.length; i++)
 					{
 						var item = loot[i];
 						// Raid Setup
-						if (!raid || raid.zone !== item.zone)
+						if (!raid || raid.zone !== item.zone || this.dateFormat(item.date) !== this.dateFormat(raid.date))
 						{
 							raid = {
 								id: "raid" + raidIdCounter++,

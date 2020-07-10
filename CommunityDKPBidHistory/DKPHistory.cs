@@ -1,4 +1,6 @@
 ﻿using BPUtil;
+using CommunityDKPBidHistory.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,20 +21,16 @@ namespace CommunityDKPBidHistory
 		private WebServer webServer;
 		private Thread thrFileManagement;
 		private EventWaitHandle ewhThreadWaiter = new EventWaitHandle(false, EventResetMode.ManualReset);
-		private static string luaFileContents = null;
 		/// <summary>
-		/// Lock this when accessing the CommunityDKP.lua file.
+		/// Lock this when accessing the CommunityDKP.lua file or History.json file.
 		/// </summary>
 		public static object LuaFileLock = new object();
 
 		/// <summary>
-		/// Gets cached lua file contents from memory from the last time the file was read.
+		/// The history object;
 		/// </summary>
-		/// <returns></returns>
-		public static string GetLuaFileContents()
-		{
-			return luaFileContents;
-		}
+		public static History history = null;
+
 		public DKPHistory()
 		{
 			InitializeComponent();
@@ -40,16 +38,31 @@ namespace CommunityDKPBidHistory
 
 		protected override void OnStart(string[] args)
 		{
+			if (File.Exists(Globals.WritableDirectoryBase + "History.json"))
+			{
+				string json;
+				lock (LuaFileLock)
+					json = File.ReadAllText(Globals.WritableDirectoryBase + "History.json", ByteUtil.Utf8NoBOM);
+				history = JsonConvert.DeserializeObject<History>(json);
+			}
+			else
+				history = new History();
+
+			if (!string.IsNullOrWhiteSpace(settings.luaFilePath) && File.Exists(settings.luaFilePath))
+				history.AddFromLuaString(File.ReadAllText(settings.luaFilePath));
+
 			if (settings.enableWebServer)
 			{
 				webServer = new WebServer(settings.httpPort);
 				webServer.Start();
 			}
-
-			thrFileManagement = new Thread(fileManagement);
-			thrFileManagement.IsBackground = false;
-			thrFileManagement.Name = "File Management";
-			thrFileManagement.Start();
+			else
+			{
+				thrFileManagement = new Thread(fileManagement);
+				thrFileManagement.IsBackground = false;
+				thrFileManagement.Name = "File Management";
+				thrFileManagement.Start();
+			}
 		}
 
 		protected override void OnStop()
@@ -57,7 +70,7 @@ namespace CommunityDKPBidHistory
 			if (settings.enableWebServer)
 				webServer?.Stop();
 			ewhThreadWaiter.Set();
-			thrFileManagement.Join();
+			thrFileManagement?.Join();
 		}
 		private void fileManagement()
 		{
@@ -100,8 +113,9 @@ namespace CommunityDKPBidHistory
 							{
 								lastFileWrite = fiSrc.LastWriteTimeUtc;
 								File.Copy(fiSrc.FullName, localLuaPath, true);
+
 								// Read file
-								luaFileContents = File.ReadAllText(localLuaPath);
+								history = History.FromLuaFile(localLuaPath);
 
 								// Calculate Hash Code
 								hash = Hash.GetMD5HexOfFile(localLuaPath);

@@ -1,5 +1,6 @@
 ﻿using BPUtil;
 using BPUtil.MVC;
+using CommunityDKPBidHistory.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,12 @@ namespace CommunityDKPBidHistory.Controllers
 			string authStr = Context.httpProcessor.GetHeaderValue("X-Dkp-Auth");
 			if (DKPHistory.VerifyAuthString(authStr))
 			{
-				string localLuaPath = DKPHistory.settings.luaFilePath;
 				try
 				{
-					FileInfo fiLocalLua = new FileInfo(localLuaPath);
-					if (!fiLocalLua.Directory.Exists)
-						Directory.CreateDirectory(fiLocalLua.Directory.FullName);
+					string lua = ByteUtil.Utf8NoBOM.GetString(Context.httpProcessor.PostBodyStream.ToArray());
+					DKPHistory.history.AddFromLuaString(lua);
 					lock (DKPHistory.LuaFileLock)
-					{
-						File.WriteAllBytes(localLuaPath, Context.httpProcessor.PostBodyStream.ToArray());
-					}
+						File.WriteAllText(Globals.WritableDirectoryBase + "History.json", JsonConvert.SerializeObject(DKPHistory.history, Formatting.Indented), ByteUtil.Utf8NoBOM);
 					return PlainText("1");
 				}
 				catch (Exception ex)

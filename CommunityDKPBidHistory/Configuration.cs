@@ -87,5 +87,36 @@ namespace CommunityDKPBidHistory
 		{
 			txtServerPassword.Text = StringUtil.GetRandomAlphaNumericString(20);
 		}
+
+		private void Configuration_Load(object sender, EventArgs e)
+		{
+			UpdateControlState();
+		}
+
+		private void cbEnableWebServer_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateControlState();
+		}
+		private void UpdateControlState()
+		{
+			if (cbEnableWebServer.Checked)
+			{
+				foreach (Control control in Controls)
+				{
+					if ((string)control.Tag == "requiresWebServer")
+						control.Enabled = control.Visible = true;
+					else if ((string)control.Tag == "requiresNoWebServer")
+						control.Enabled = control.Visible = false;
+				}
+			}
+			else
+				foreach (Control control in Controls)
+				{
+					if ((string)control.Tag == "requiresWebServer")
+						control.Enabled = control.Visible = false;
+					else if ((string)control.Tag == "requiresNoWebServer")
+						control.Enabled = control.Visible = true;
+				}
+		}
 	}
 }

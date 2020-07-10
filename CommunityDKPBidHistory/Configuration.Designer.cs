@@ -65,25 +65,27 @@
 			// cbEnableWebServer
 			// 
 			this.cbEnableWebServer.AutoSize = true;
-			this.cbEnableWebServer.Location = new System.Drawing.Point(12, 42);
+			this.cbEnableWebServer.Location = new System.Drawing.Point(12, 12);
 			this.cbEnableWebServer.Name = "cbEnableWebServer";
 			this.cbEnableWebServer.Size = new System.Drawing.Size(119, 17);
-			this.cbEnableWebServer.TabIndex = 1;
+			this.cbEnableWebServer.TabIndex = 0;
 			this.cbEnableWebServer.Text = "Enable Web Server";
 			this.cbEnableWebServer.UseVisualStyleBackColor = true;
+			this.cbEnableWebServer.CheckedChanged += new System.EventHandler(this.cbEnableWebServer_CheckedChanged);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(167, 43);
+			this.label1.Location = new System.Drawing.Point(167, 13);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(72, 13);
 			this.label1.TabIndex = 1;
+			this.label1.Tag = "requiresWebServer";
 			this.label1.Text = "HTTP on port";
 			// 
 			// nudHttpPort
 			// 
-			this.nudHttpPort.Location = new System.Drawing.Point(245, 39);
+			this.nudHttpPort.Location = new System.Drawing.Point(245, 9);
 			this.nudHttpPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -96,7 +98,8 @@
             0});
 			this.nudHttpPort.Name = "nudHttpPort";
 			this.nudHttpPort.Size = new System.Drawing.Size(62, 20);
-			this.nudHttpPort.TabIndex = 2;
+			this.nudHttpPort.TabIndex = 1;
+			this.nudHttpPort.Tag = "requiresWebServer";
 			this.nudHttpPort.Value = new decimal(new int[] {
             1,
             0,
@@ -109,14 +112,16 @@
 			this.txtLuaPath.Name = "txtLuaPath";
 			this.txtLuaPath.Size = new System.Drawing.Size(348, 20);
 			this.txtLuaPath.TabIndex = 3;
+			this.txtLuaPath.Tag = "";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(12, 70);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(123, 13);
+			this.label2.Size = new System.Drawing.Size(134, 13);
 			this.label2.TabIndex = 4;
+			this.label2.Tag = "";
 			this.label2.Text = "Path to CommunityDKP.lua";
 			// 
 			// btnBrowseLocalLua
@@ -125,6 +130,7 @@
 			this.btnBrowseLocalLua.Name = "btnBrowseLocalLua";
 			this.btnBrowseLocalLua.Size = new System.Drawing.Size(75, 23);
 			this.btnBrowseLocalLua.TabIndex = 5;
+			this.btnBrowseLocalLua.Tag = "";
 			this.btnBrowseLocalLua.Text = "Browse";
 			this.btnBrowseLocalLua.UseVisualStyleBackColor = true;
 			this.btnBrowseLocalLua.Click += new System.EventHandler(this.btnBrowseLocalLua_Click);
@@ -134,8 +140,9 @@
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(12, 136);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(247, 13);
+			this.label3.Size = new System.Drawing.Size(258, 13);
 			this.label3.TabIndex = 6;
+			this.label3.Tag = "requiresNoWebServer";
 			this.label3.Text = "-- Upload CommunityDKP.lua to another web server --";
 			// 
 			// nudRemoteUploadInterval
@@ -149,6 +156,7 @@
 			this.nudRemoteUploadInterval.Name = "nudRemoteUploadInterval";
 			this.nudRemoteUploadInterval.Size = new System.Drawing.Size(71, 20);
 			this.nudRemoteUploadInterval.TabIndex = 7;
+			this.nudRemoteUploadInterval.Tag = "requiresNoWebServer";
 			// 
 			// label4
 			// 
@@ -157,6 +165,7 @@
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(82, 13);
 			this.label4.TabIndex = 8;
+			this.label4.Tag = "requiresNoWebServer";
 			this.label4.Text = "Upload Interval:";
 			// 
 			// label5
@@ -166,6 +175,7 @@
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(112, 13);
 			this.label5.TabIndex = 9;
+			this.label5.Tag = "requiresNoWebServer";
 			this.label5.Text = "(minutes). 0 to disable.";
 			// 
 			// txtRemoteUploadUrl
@@ -174,6 +184,7 @@
 			this.txtRemoteUploadUrl.Name = "txtRemoteUploadUrl";
 			this.txtRemoteUploadUrl.Size = new System.Drawing.Size(340, 20);
 			this.txtRemoteUploadUrl.TabIndex = 10;
+			this.txtRemoteUploadUrl.Tag = "requiresNoWebServer";
 			this.txtRemoteUploadUrl.Text = "http://example.com/Upload";
 			// 
 			// label6
@@ -183,6 +194,7 @@
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(69, 13);
 			this.label6.TabIndex = 11;
+			this.label6.Tag = "requiresNoWebServer";
 			this.label6.Text = "Upload URL:";
 			// 
 			// label7
@@ -206,8 +218,9 @@
 			this.label8.AutoSize = true;
 			this.label8.Location = new System.Drawing.Point(12, 282);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(189, 13);
+			this.label8.Size = new System.Drawing.Size(200, 13);
 			this.label8.TabIndex = 14;
+			this.label8.Tag = "requiresNoWebServer";
 			this.label8.Text = "-- Local backups of CommunityDKP.lua --";
 			// 
 			// label9
@@ -217,6 +230,7 @@
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(112, 13);
 			this.label9.TabIndex = 17;
+			this.label9.Tag = "requiresNoWebServer";
 			this.label9.Text = "(minutes). 0 to disable.";
 			// 
 			// label10
@@ -226,6 +240,7 @@
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(85, 13);
 			this.label10.TabIndex = 16;
+			this.label10.Tag = "requiresNoWebServer";
 			this.label10.Text = "Backup Interval:";
 			// 
 			// nudLocalBackupInterval
@@ -239,6 +254,7 @@
 			this.nudLocalBackupInterval.Name = "nudLocalBackupInterval";
 			this.nudLocalBackupInterval.Size = new System.Drawing.Size(71, 20);
 			this.nudLocalBackupInterval.TabIndex = 15;
+			this.nudLocalBackupInterval.Tag = "requiresNoWebServer";
 			// 
 			// btnBrowseLocalBackupFolder
 			// 
@@ -246,6 +262,7 @@
 			this.btnBrowseLocalBackupFolder.Name = "btnBrowseLocalBackupFolder";
 			this.btnBrowseLocalBackupFolder.Size = new System.Drawing.Size(75, 23);
 			this.btnBrowseLocalBackupFolder.TabIndex = 20;
+			this.btnBrowseLocalBackupFolder.Tag = "requiresNoWebServer";
 			this.btnBrowseLocalBackupFolder.Text = "Browse";
 			this.btnBrowseLocalBackupFolder.UseVisualStyleBackColor = true;
 			this.btnBrowseLocalBackupFolder.Click += new System.EventHandler(this.btnBrowseLocalBackupFolder_Click);
@@ -257,6 +274,7 @@
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(135, 13);
 			this.label11.TabIndex = 19;
+			this.label11.Tag = "requiresNoWebServer";
 			this.label11.Text = "Folder to place backups in:";
 			// 
 			// txtLocalBackupFolder
@@ -265,13 +283,13 @@
 			this.txtLocalBackupFolder.Name = "txtLocalBackupFolder";
 			this.txtLocalBackupFolder.Size = new System.Drawing.Size(348, 20);
 			this.txtLocalBackupFolder.TabIndex = 18;
+			this.txtLocalBackupFolder.Tag = "requiresNoWebServer";
 			// 
 			// openFileDialog_LuaFile
 			// 
 			this.openFileDialog_LuaFile.DefaultExt = "lua";
 			this.openFileDialog_LuaFile.FileName = "CommunityDKP.lua";
 			this.openFileDialog_LuaFile.Filter = "Lua files|*.lua";
-			this.openFileDialog_LuaFile.InitialDirectory = "U:\\";
 			// 
 			// btnOk
 			// 
@@ -306,18 +324,20 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(12, 15);
+			this.label12.Location = new System.Drawing.Point(12, 38);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(65, 13);
 			this.label12.TabIndex = 24;
+			this.label12.Tag = "requiresWebServer";
 			this.label12.Text = "Guild Name:";
 			// 
 			// txtGuildName
 			// 
-			this.txtGuildName.Location = new System.Drawing.Point(83, 12);
+			this.txtGuildName.Location = new System.Drawing.Point(83, 35);
 			this.txtGuildName.Name = "txtGuildName";
 			this.txtGuildName.Size = new System.Drawing.Size(358, 20);
-			this.txtGuildName.TabIndex = 0;
+			this.txtGuildName.TabIndex = 2;
+			this.txtGuildName.Tag = "requiresWebServer";
 			// 
 			// cbAcceptUploads
 			// 
@@ -326,6 +346,7 @@
 			this.cbAcceptUploads.Name = "cbAcceptUploads";
 			this.cbAcceptUploads.Size = new System.Drawing.Size(191, 17);
 			this.cbAcceptUploads.TabIndex = 25;
+			this.cbAcceptUploads.Tag = "requiresWebServer";
 			this.cbAcceptUploads.Text = "Accept uploads from remote clients";
 			this.cbAcceptUploads.UseVisualStyleBackColor = true;
 			// 
@@ -366,6 +387,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Configuration";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Configuration_FormClosing);
+			this.Load += new System.EventHandler(this.Configuration_Load);
 			((System.ComponentModel.ISupportInitialize)(this.nudHttpPort)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudRemoteUploadInterval)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudLocalBackupInterval)).EndInit();
