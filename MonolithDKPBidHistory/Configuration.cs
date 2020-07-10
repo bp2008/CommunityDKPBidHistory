@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MonolithDKPBidHistory
+namespace CommunityDKPBidHistory
 {
 	public partial class Configuration : Form
 	{

@@ -1,4 +1,4 @@
-﻿namespace MonolithDKPBidHistory
+﻿namespace CommunityDKPBidHistory
 {
 	partial class Configuration
 	{
@@ -117,7 +117,7 @@
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(123, 13);
 			this.label2.TabIndex = 4;
-			this.label2.Text = "Path to MonolithDKP.lua";
+			this.label2.Text = "Path to CommunityDKP.lua";
 			// 
 			// btnBrowseLocalLua
 			// 
@@ -136,7 +136,7 @@
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(247, 13);
 			this.label3.TabIndex = 6;
-			this.label3.Text = "-- Upload MonolithDKP.lua to another web server --";
+			this.label3.Text = "-- Upload CommunityDKP.lua to another web server --";
 			// 
 			// nudRemoteUploadInterval
 			// 
@@ -208,7 +208,7 @@
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(189, 13);
 			this.label8.TabIndex = 14;
-			this.label8.Text = "-- Local backups of MonolithDKP.lua --";
+			this.label8.Text = "-- Local backups of CommunityDKP.lua --";
 			// 
 			// label9
 			// 
@@ -269,7 +269,7 @@
 			// openFileDialog_LuaFile
 			// 
 			this.openFileDialog_LuaFile.DefaultExt = "lua";
-			this.openFileDialog_LuaFile.FileName = "MonolithDKP.lua";
+			this.openFileDialog_LuaFile.FileName = "CommunityDKP.lua";
 			this.openFileDialog_LuaFile.Filter = "Lua files|*.lua";
 			this.openFileDialog_LuaFile.InitialDirectory = "U:\\";
 			// 

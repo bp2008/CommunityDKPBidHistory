@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MonolithDKPBidHistory
+namespace CommunityDKPBidHistory
 {
 	public partial class DKPHistory : ServiceBase
 	{
@@ -21,7 +21,7 @@ namespace MonolithDKPBidHistory
 		private EventWaitHandle ewhThreadWaiter = new EventWaitHandle(false, EventResetMode.ManualReset);
 		private static string luaFileContents = null;
 		/// <summary>
-		/// Lock this when accessing the MonolithDKP.lua file.
+		/// Lock this when accessing the CommunityDKP.lua file.
 		/// </summary>
 		public static object LuaFileLock = new object();
 
@@ -63,7 +63,7 @@ namespace MonolithDKPBidHistory
 		{
 			try
 			{
-				string localLuaPath = Globals.WritableDirectoryBase + "MonolithDKP.lua";
+				string localLuaPath = Globals.WritableDirectoryBase + "CommunityDKP.lua";
 				long minutesWaited = 0;
 				DateTime lastFileWrite = DateTime.MinValue;
 				long lastLocalBackupMinutes = -99999999;
@@ -93,7 +93,7 @@ namespace MonolithDKPBidHistory
 							FileInfo fiSrc = new FileInfo(settings.luaFilePath);
 							if (!fiSrc.Exists)
 							{
-								Logger.Info("Could not find MonolithDKP.lua. Check configuration.");
+								Logger.Info("Could not find CommunityDKP.lua. Check configuration.");
 								continue;
 							}
 							if (lastFileWrite != fiSrc.LastWriteTimeUtc)
@@ -133,7 +133,7 @@ namespace MonolithDKPBidHistory
 							if (Directory.Exists(settings.localBackupPath))
 							{
 								DateTime fileTime = File.GetLastWriteTime(localLuaPath);
-								string bkFileName = Path.Combine(settings.localBackupPath, "MonolithDKP-" + fileTime.ToString("yyyy-MM-dd hh-mm-ss") + ".lua");
+								string bkFileName = Path.Combine(settings.localBackupPath, "CommunityDKP-" + fileTime.ToString("yyyy-MM-dd hh-mm-ss") + ".lua");
 								if (!File.Exists(bkFileName))
 									File.Copy(localLuaPath, bkFileName, true);
 								// Backup complete

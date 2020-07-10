@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonolithDKPBidHistory
+namespace CommunityDKPBidHistory
 {
 	public class Settings : SerializableObjectBase
 	{
@@ -14,12 +14,12 @@ namespace MonolithDKPBidHistory
 		public int httpPort = 80;
 
 		/// <summary>
-		/// Path to MonolithDKP.lua
+		/// Path to CommunityDKP.lua
 		/// </summary>
 		public string luaFilePath = "";
 
 		/// <summary>
-		/// [0 to disable] Every N minutes, hash check MonolithDKP.lua and upload to the remote server if contents have changed.
+		/// [0 to disable] Every N minutes, hash check CommunityDKP.lua and upload to the remote server if contents have changed.
 		/// </summary>
 		public int remoteUploadIntervalMinutes = 0;
 		/// <summary>
@@ -27,7 +27,7 @@ namespace MonolithDKPBidHistory
 		/// </summary>
 		public string remoteUploadUrl = "";
 		/// <summary>
-		/// If true, MonolithDKP.lua uploads from authenticated remote clients will be written to luaFilePath.
+		/// If true, CommunityDKP.lua uploads from authenticated remote clients will be written to luaFilePath.
 		/// </summary>
 		public bool receiveUploads = false;
 		/// <summary>
@@ -36,7 +36,7 @@ namespace MonolithDKPBidHistory
 		public string serverPassword = "";
 
 		/// <summary>
-		/// [0 to disable] Every N minutes, save a backup of MonolithDKP.lua to this location if contents have changed.
+		/// [0 to disable] Every N minutes, save a backup of CommunityDKP.lua to this location if contents have changed.
 		/// </summary>
 		public int localBackupIntervalMinutes = 0;
 		/// <summary>

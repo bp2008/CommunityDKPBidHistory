@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MonolithDKPBidHistory.Controllers
+namespace CommunityDKPBidHistory.Controllers
 {
 	public class Upload : Controller
 	{

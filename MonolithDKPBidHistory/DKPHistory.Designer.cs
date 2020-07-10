@@ -1,4 +1,4 @@
-﻿namespace MonolithDKPBidHistory
+﻿namespace CommunityDKPBidHistory
 {
 	partial class DKPHistory
 	{

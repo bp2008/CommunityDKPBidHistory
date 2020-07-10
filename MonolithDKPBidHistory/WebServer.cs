@@ -12,7 +12,7 @@ using BPUtil;
 using BPUtil.MVC;
 using BPUtil.SimpleHttp;
 
-namespace MonolithDKPBidHistory
+namespace CommunityDKPBidHistory
 {
 	public class WebServer : HttpServer
 	{
