@@ -16,15 +16,15 @@ namespace CommunityDKPBidHistory.Controllers
 	{
 		public ActionResult Index()
 		{
-			string monDkpLua = DKPHistory.GetLuaFileContents();
-			if (monDkpLua == null)
+			string dkpLua = DKPHistory.GetLuaFileContents();
+			if (dkpLua == null)
 				return new ErrorResult("The server is currently initializing.");
 
 			ViewDataContainer viewData = new ViewDataContainer();
 
 			viewData.Set("GuildName", DKPHistory.settings.guildName);
-			viewData.Set("Loot", GetLootJson(monDkpLua));
-			viewData.Set("Players", GetPlayerJson(monDkpLua));
+			viewData.Set("Loot", GetLootJson(dkpLua));
+			viewData.Set("Players", GetPlayerJson(dkpLua));
 
 			if (Debugger.IsAttached)
 				viewData.Set("VueScriptName", "vue.js");
@@ -44,7 +44,7 @@ namespace CommunityDKPBidHistory.Controllers
 
 		private string GetLootJson(string lua)
 		{
-			return ParseLua<LootItem>(lua, "MonDKP_Loot", (item, key, value) =>
+			return ParseLua<LootItem>(lua, "CommDKP_Loot", (item, key, value) =>
 			{
 				if (key.Equals("date", StringComparison.OrdinalIgnoreCase) && long.TryParse(value, out long n1))
 					item.date = n1;
@@ -83,7 +83,7 @@ namespace CommunityDKPBidHistory.Controllers
 		});
 		private string GetPlayerJson(string lua)
 		{
-			return ParseLua<Player>(lua, "MonDKP_DKPTable", (item, key, value) =>
+			return ParseLua<Player>(lua, "CommDKP_DKPTable", (item, key, value) =>
 			{
 				if (key.Equals("player", StringComparison.OrdinalIgnoreCase))
 					item.name = value;
