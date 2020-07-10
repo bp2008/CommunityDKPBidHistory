@@ -31,7 +31,7 @@ You will need to tell the app where to find `CommunityDKP.lua`.  Typically this 
 
 For the app to be useful, you need to enable uploading or local backups (or both).  The following screenshot is an example configuration:
 
-![Client Configuration GUI](https://i.imgur.com/49lB2EU.png)
+![Client Configuration GUI](https://i.imgur.com/V3qalMo.png)
 
 Don't worry about a 1 minute interval being too fast; the upload and backup tasks only occur once upon service startup and then whenever the file changes, so it doesn't waste too much space or bandwidth.
 
