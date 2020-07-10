@@ -1,5 +1,5 @@
 # CommunityDKPBidHistory
-A searchable web interface for bid history from CommunityDKP.
+A searchable web interface for bid history with data sourced from CommunityDKP.
 
 ## Description
 
