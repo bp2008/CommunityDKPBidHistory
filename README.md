@@ -37,7 +37,7 @@ Don't worry about a 1 minute interval being too fast; the upload and backup task
 
 ### Server Configuration
 
-To configure as a web server, enable the web server option and choose a port (80 is default for HTTP). You can leave the path path to your `CommunityDKP.lua` file blank.  Set a server password, and enable the option to accept uploads from remote clients.
+To configure as a web server, enable the web server option and choose a port (80 is default for HTTP). You can leave the path to your `CommunityDKP.lua` file blank.  Set a server password, and enable the option to accept uploads from remote clients.
 
 ![Server Configuration GUI](https://i.imgur.com/Mbl29hz.png)
 
