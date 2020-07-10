@@ -21,7 +21,7 @@ This Service Manager will open:
 
 Here, you can install, uninstall, start, and stop the service.  A configuration GUI is also provided.
 
-Since version 2.0, this app is designed to be run either *as a web server* **or** *as a client service* which uploads data to a web server and/or makes automated backups of the dkp data file.  At this time, it is not a supported configuration to run the web server and the client service on the same machine.
+Since version 2.0, this app is designed to be run either as a web server **or** as a client service which uploads data to a web server and/or makes automated backups of the dkp data file.  At this time, it is not a supported configuration to run the web server and the client service on the same machine.
 
 ### Client Configuration
 
@@ -44,6 +44,8 @@ To configure as a web server, enable the web server option and choose a port (80
 If you intend for others to access your web server, you will need to open its port in Windows Firewall.  You will also need to set up the internet routing via a port forwarding rule in your router, or by a private VPN service such as Hamachi.
 
 Set the same server password in your configuration for the web server and for the client app -- this password is used only to authenticate clients attempting to use the DKP uploading interface.
+
+Loot history and player names/classes are remembered in a file `History.json` which will be located in the same folder as the program executable.
 
 ### Serving On Linux
 
