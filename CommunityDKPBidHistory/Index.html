@@ -333,7 +333,7 @@
 							<span class="player" :class="item.wowclass">{{item.player}}</span>
 							for
 						</span>
-						<a class="itemName" :href="'https://classic.wowhead.com/item=' + item.itemid" target="_blank" :style="'color: #' + item.color + ';'" :data-wowhead="'item=' + item.itemid + '&amp;domain=classic'" v-text="item.name"></a>
+						<a class="itemName" :href="'https://' + item.wowera + '.wowhead.com/item=' + item.itemid" target="_blank" :style="'color: #' + item.color + ';'" :data-wowhead="'item=' + item.itemid + '&amp;domain=' + item.wowera" v-text="item.name"></a>
 						<span v-show="!compactLayout">
 							won by
 							<span class="player" :class="item.wowclass" v-text="item.player"></span>
@@ -362,6 +362,8 @@
 			return this;
 
 		};
+
+		var tbcStart = new Date("2021-05-01T00:00:00.000");
 
 		var loot = @Loot;
 
@@ -410,6 +412,8 @@
 			item.id = itemIdCounter++;
 			item.wowclass = playerClasses[item.player];
 			item.show = true;
+			item.jsdate = new Date(item.date * 1000);
+			item.wowera = item.jsdate < tbcStart ? "classic" : "tbc";
 		}
 
 		var vm = new Vue({

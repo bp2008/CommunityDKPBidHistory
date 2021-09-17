@@ -32,9 +32,9 @@ namespace CommunityDKPBidHistory.Controllers
 			viewData.Set("Players", JsonConvert.SerializeObject(players));
 
 			if (Debugger.IsAttached)
-				viewData.Set("VueScriptName", "vue.js");
+				viewData.Set("VueScriptName", "vue.js?v=" + Uri.EscapeDataString(Globals.AssemblyVersion));
 			else
-				viewData.Set("VueScriptName", "vue.min.js");
+				viewData.Set("VueScriptName", "vue.min.js?v=" + Uri.EscapeDataString(Globals.AssemblyVersion));
 
 			string rootDir = Globals.ApplicationDirectoryBase;
 			if (Debugger.IsAttached)
