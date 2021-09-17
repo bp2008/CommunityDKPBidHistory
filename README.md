@@ -1,5 +1,5 @@
 # CommunityDKPBidHistory
-A searchable web interface for bid history from CommunityDKP.
+A searchable web interface for bid history with data sourced from CommunityDKP.
 
 ## Description
 
@@ -7,7 +7,7 @@ This application is a companion to the CommunityDKP mod for World of Warcraft Cl
 
 ![Screenshot](https://i.imgur.com/Qdi0cMD.png)
 
-Additional features include automated backups of the CommunityDKP.lua file and the ability to mirror your DKP data to a cloud server (which you must run yourself).
+An additional feature provided by this app is automated backups of the CommunityDKP.lua file (which contains all your dkp history and configuration).
 
 ## Installation
 
@@ -21,7 +21,7 @@ This Service Manager will open:
 
 Here, you can install, uninstall, start, and stop the service.  A configuration GUI is also provided.
 
-Since version 2.0, this app is designed to be run either *as a web server* **or** *as a client service* which uploads data to a web server and/or makes automated backups of the dkp data file.  At this time, it is not a supported configuration to run the web server and the client service on the same machine.
+Since version 2.0, this app is designed to be run either as a web server **or** as a client service which uploads data to a web server and/or makes automated backups of the dkp data file.  At this time, it is not a supported configuration to run the web server and the client service on the same machine.
 
 ### Client Configuration
 
@@ -31,19 +31,21 @@ You will need to tell the app where to find `CommunityDKP.lua`.  Typically this 
 
 For the app to be useful, you need to enable uploading or local backups (or both).  The following screenshot is an example configuration:
 
-![Client Configuration GUI](https://i.imgur.com/49lB2EU.png)
+![Client Configuration GUI](https://i.imgur.com/V3qalMo.png)
 
 Don't worry about a 1 minute interval being too fast; the upload and backup tasks only occur once upon service startup and then whenever the file changes, so it doesn't waste too much space or bandwidth.
 
 ### Server Configuration
 
-To configure as a web server, enable the web server option and choose a port (80 is default for HTTP). You can leave the path path to your `CommunityDKP.lua` file blank.  Set a server password, and enable the option to accept uploads from remote clients.
+To configure as a web server, enable the web server option and choose a port (80 is default for HTTP). You can leave the path to your `CommunityDKP.lua` file blank.  Set a server password, and enable the option to accept uploads from remote clients.
 
 ![Server Configuration GUI](https://i.imgur.com/Mbl29hz.png)
 
 If you intend for others to access your web server, you will need to open its port in Windows Firewall.  You will also need to set up the internet routing via a port forwarding rule in your router, or by a private VPN service such as Hamachi.
 
 Set the same server password in your configuration for the web server and for the client app -- this password is used only to authenticate clients attempting to use the DKP uploading interface.
+
+Loot history and player names/classes are remembered in a file `History.json` which will be located in the same folder as the program executable.
 
 ### Serving On Linux
 
